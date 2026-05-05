@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import Header from "./components/Header";
 import ProjectList from "./components/ProjectList";
 import AddProjectForm from "./components/AddProjectForm";
@@ -11,6 +11,7 @@ function App(){
     const [projects, setProjects] = useState(Projects);
     const[searchQuery, setSearchQuery] = useState("");
     const [toasts, setToasts] = useState([]);
+    const toastTimer = useRef({});
     const [activeFilter, setActiveFilter] = useState("All");
     //Toast
     const showToast = useCallback((message, type = "success") => {
@@ -32,14 +33,14 @@ function App(){
     });
     //--------------Add Projects-----------------------
     const handleAddProject = useCallback((newProject) => {
-        setProjects([...projects, newProject]);
+        setProjects((prevProjects) => [...prevProjects, newProject]);
         showToast(`"${newProject.title}" added to your portfolio! 🎉`, "success");
 
     },[showToast]
     );
     //---------------Delete Project-------------------
     const handleDeleteProject = (projectId) => {
-        setProjects(projects.filter(p => p.id !== projectId));
+        setProjects((prevProjects) => prevProjects.filter(p => p.id !== projectId));
     };
 
         return(
@@ -53,6 +54,7 @@ function App(){
             <SearchBar value={searchQuery} onChange={setSearchQuery} />
             <ProjectList projects={filteredProjects} searchQuery={searchQuery} onDeleteProject={handleDeleteProject} />
             </div>
+            <ToastContainer toasts={toasts} />
 
             </section>
         </section>
