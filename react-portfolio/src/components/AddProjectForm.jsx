@@ -33,13 +33,13 @@ function AddProjectForm ({onAddProject}) {
             <form onSubmit={handleSubmit} className="project-form">   
                  {error && <p>{error}</p>}
                 <label>Title</label>
-                <input type="text" value={form.title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g. Nova-Brand Identity"/>
+                <input type="text" value={form.title} onChange={(e) => setForm({...form, title: e.target.value})} placeholder="e.g. Nova-Brand Identity"/>
                 <label>Client</label>
-                <input type="text" value={form.client} onChange={(e) => setClient(e.target.value)} placeholder="e.g. Acme Corp"/>
+                <input type="text" value={form.client} onChange={(e) => setForm({...form, client: e.target.value})} placeholder="e.g. Acme Corp"/>
                 <label>Year</label>
-                <input type="number" min="1983" max="2099" value={form.year} onChange={(e) => setYear(e.target.value)} />
+                <input type="number" min="1983" max="2099" value={form.year} onChange={(e) => setForm({...form, year: e.target.value})} />
                 <label>Description</label>
-                <textarea type="text" value={form.description} onChange={(e) => setDescription(e.target.value)} placeholder="Describe the project, outcomes, and your role…" rows={4} />
+                <textarea type="text" value={form.description} onChange={(e) => setForm({...form, description: e.target.value})} placeholder="Describe the project, outcomes, and your role…" rows={4} />
                 <button type="submit" id="form-submit">Add Project</button>
             </form>
         </section>

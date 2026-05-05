@@ -8,12 +8,30 @@ import { Projects } from "./data/projects";
 import "./styles/style.css";
 
 function App(){
-    return(
+    const [projects, setProjects] = useState(Projects);
+    const[searchQuery, setSearchQuery] = useState("");
+    const [activeFilter, setActiveFilter] = useState("All");
+    // Derive filtered projects from state
+    const filteredProjects = projects.filter((p) => {
+        const matchesSearch =
+        p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.client.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesFilter =
+        activeFilter === "All" || (p.tags && p.tags.includes(activeFilter));
+        return matchesSearch && matchesFilter;
+    });
+
+    const handleAddProject = (newProject) => {
+        setProjects([...projects, newProject]);
+    };
+
+        return(
         <section> 
             <Header />
-            <AddProjectForm />
-            <SearchBar />
-            <ProjectList />
+            <AddProjectForm onAddProject={handleAddProject} />
+            <SearchBar value={searchQuery} onChange={setSearchQuery} />
+            <ProjectList projects={filteredProjects} searchQuery={searchQuery} />
         </section>
        
     )
