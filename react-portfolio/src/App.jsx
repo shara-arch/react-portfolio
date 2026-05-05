@@ -10,7 +10,16 @@ import "./styles/style.css";
 function App(){
     const [projects, setProjects] = useState(Projects);
     const[searchQuery, setSearchQuery] = useState("");
+    const [toasts, setToasts] = useState([]);
     const [activeFilter, setActiveFilter] = useState("All");
+    //Toast
+    const showToast = useCallback((message, type = "success") => {
+    const id = Date.now();
+    setToasts((prev) => [...prev, { id, message, type }]);
+    toastTimer.current[id] = setTimeout(() => {
+      setToasts((prev) => prev.filter((t) => t.id !== id));
+    }, 3500);
+  }, []);
     // Derive filtered projects from state
     const filteredProjects = projects.filter((p) => {
         const matchesSearch =
@@ -22,9 +31,12 @@ function App(){
         return matchesSearch && matchesFilter;
     });
     //--------------Add Projects-----------------------
-    const handleAddProject = (newProject) => {
+    const handleAddProject = useCallback((newProject) => {
         setProjects([...projects, newProject]);
-    };
+        showToast(`"${newProject.title}" added to your portfolio! 🎉`, "success");
+
+    },[showToast]
+    );
     //---------------Delete Project-------------------
     const handleDeleteProject = (projectId) => {
         setProjects(projects.filter(p => p.id !== projectId));
