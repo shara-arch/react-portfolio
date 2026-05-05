@@ -21,11 +21,11 @@ function App(){
         activeFilter === "All" || (p.tags && p.tags.includes(activeFilter));
         return matchesSearch && matchesFilter;
     });
-
+    //--------------Add Projects-----------------------
     const handleAddProject = (newProject) => {
         setProjects([...projects, newProject]);
     };
-
+    //---------------Delete Project-------------------
     const handleDeleteProject = (projectId) => {
         setProjects(projects.filter(p => p.id !== projectId));
     };
@@ -46,5 +46,18 @@ function App(){
         </section>
        
     )
+}
+// ----------Toast Helper--------------
+function ToastContainer({ toasts }) {
+  return (
+    <div className="toast-wrap" aria-live="polite">
+      {toasts.map((t) => (
+        <div key={t.id} className={`toast ${t.type}`}>
+          <span className="toast-icon">{t.type === "success" ? "✓" : "✕"}</span>
+          {t.message}
+        </div>
+      ))}
+    </div>
+  );
 }
 export default App;
