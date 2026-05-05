@@ -74,4 +74,33 @@ function ToastContainer({ toasts }) {
     </div>
   );
 }
+// confirm Modal
+function ConfirmModal({ project, onConfirm, onCancel }) {
+  return (
+    <div
+      className="confirm-backdrop"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Confirm deletion"
+      onClick={(e) => e.target === e.currentTarget && onCancel()}
+    >
+      <div className="confirm-modal">
+        <span className="confirm-icon">🗑️</span>
+        <h3>Delete Project?</h3>
+        <p>
+          <strong>"{project.title}"</strong> will be permanently removed from
+          your portfolio. This action cannot be undone.
+        </p>
+        <div className="confirm-actions">
+          <button className="btn-cancel" onClick={onCancel}>
+            Keep it
+          </button>
+          <button className="btn-confirm-delete" onClick={onConfirm}>
+            Yes, delete
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
 export default App;
