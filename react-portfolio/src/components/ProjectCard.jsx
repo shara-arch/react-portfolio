@@ -1,10 +1,10 @@
 import React from "react";
 
-function SearchBar(){
+function ProjectCard(){
     return(
         <div>
-            Search Bar!
+            Project Card !
         </div>
     )
 }
-export default SearchBar;
+export default ProjectCard;
