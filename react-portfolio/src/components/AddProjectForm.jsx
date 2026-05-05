@@ -24,7 +24,7 @@ function AddProjectForm ({onAddProject}) {
     
     // Reset form
     setForm(InitialState);
-    setError({});
+    setError('');
   };
     return(
         <section className="project-form-card">

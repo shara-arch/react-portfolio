@@ -1,12 +1,12 @@
 import React from "react";
 import ProjectCard from "./ProjectCard";
 
-function ProjectList ({projects, searchQuery}) {
+function ProjectList ({projects, searchQuery, onDeleteProject}) {
     return(
         <div className="project-List">
             {projects.length > 0 ? (
                 projects.map(project => (
-                   <ProjectCard key={project.id} project={project} />
+                   <ProjectCard key={project.id} project={project} onDelete={onDeleteProject} />
                 ))
             ): (<div className="empty-state" role="status">
         <span className="empty-icon">◎</span>
