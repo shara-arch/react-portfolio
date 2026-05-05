@@ -63,10 +63,13 @@ function App(){
             </div>
             <div>            
             <SearchBar value={searchQuery} onChange={setSearchQuery} />
-            <ProjectList projects={filteredProjects} searchQuery={searchQuery} onDeleteProject={handleDeleteProject} />
+            <ProjectList projects={filteredProjects} searchQuery={searchQuery} onDeleteProject={handleDeleteRequest} />
             </div>
+             </section>            
             <ToastContainer toasts={toasts} />
-            </section>
+            {pendingDelete && (
+            <ConfirmModal project={pendingDelete} onConfirm={handleDeleteConfirm} onCancel={() => setPendingDelete(null)} />
+        )}
         </section>
        
     )
