@@ -1,4 +1,4 @@
-export const initialProjects = [
+export const Projects = [
   {
     id: 1,
     title: "Nomad — Travel Brand Identity",

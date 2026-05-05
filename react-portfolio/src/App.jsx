@@ -4,8 +4,8 @@ import ProjectList from "./components/ProjectList";
 import AddProjectForm from "./components/AddProjectForm";
 import SearchBar from "./components/SearchBar";
 import ProjectCard from "./components/ProjectCard";
-// import { initialProjects } from "./data/projects";
-// import "./styles/style.css";
+import { Projects } from "./data/projects";
+import "./styles/style.css";
 
 function App(){
     return(

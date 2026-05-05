@@ -1,10 +1,16 @@
 import React from "react";
 
-function SearchBar(){
+const SearchBar = ({value, onChange }) => {
     return(
         <div>
-            Search Bar!
+            <span className="search-icon" aria-hidden="true">⌕</span>
+            <input type="text" Placeholder="Search Projects" value={value} onChange={(e) => onChange(e.target.value)} />
+            {value && (<button className="search-clear"
+          onClick={() => onChange("")}
+          aria-label="Clear search">
+              x  
+            </button>)}
         </div>
-    )
+    );
 }
 export default SearchBar;
