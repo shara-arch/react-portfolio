@@ -12,6 +12,7 @@ function App(){
     const[searchQuery, setSearchQuery] = useState("");
     const [toasts, setToasts] = useState([]);
     const toastTimer = useRef({});
+    const [pendingDelete, setPendingDelete] = useState(null); // project to confirm-delete
     const [activeFilter, setActiveFilter] = useState("All");
     //Toast
     const showToast = useCallback((message, type = "success") => {
@@ -39,9 +40,19 @@ function App(){
     },[showToast]
     );
     //---------------Delete Project-------------------
-    const handleDeleteProject = (projectId) => {
-        setProjects((prevProjects) => prevProjects.filter(p => p.id !== projectId));
-    };
+    //Step 1: Delete Request Confirmation
+    const handleDeleteRequest = useCallback((projectId) => {
+        const project = projects.find((p) => p.id === projectId);
+        if (project) setPendingDelete(project);
+    }, [projects]);
+
+  //step 2:  Delete confirmed 
+    const handleDeleteConfirm = useCallback(() => {
+        if (!pendingDelete) return;
+        setProjects((prev) => prev.filter((p) => p.id !== pendingDelete.id));
+        showToast(`"${pendingDelete.title}" has been deleted.`, "error");
+        setPendingDelete(null);
+    }, [pendingDelete, showToast]);
 
         return(
         <section> 
@@ -55,7 +66,6 @@ function App(){
             <ProjectList projects={filteredProjects} searchQuery={searchQuery} onDeleteProject={handleDeleteProject} />
             </div>
             <ToastContainer toasts={toasts} />
-
             </section>
         </section>
        
