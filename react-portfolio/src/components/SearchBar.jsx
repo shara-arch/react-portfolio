@@ -1,6 +1,6 @@
 import React from "react";
 
-const SearchBar = ({value, onChange }) => {
+function SearchBar ({value, onChange }) {
     return(
         <div>
             <span className="search-icon" aria-hidden="true">⌕</span>
